@@ -163,7 +163,7 @@ const Generate = () => {
 
             tempSpecificationMultipleChoice = [
                 ...tempSpecificationMultipleChoice,
-                { name: specification, data: temp },
+                { name: specification, data: temp, count: 0 },
             ];
         });
 
@@ -174,7 +174,7 @@ const Generate = () => {
 
             tempSpecificationIdentification = [
                 ...tempSpecificationIdentification,
-                { name: specification, data: temp },
+                { name: specification, data: temp, count: 0 },
             ];
         });
 
@@ -185,13 +185,117 @@ const Generate = () => {
 
             tempSpecificationEssay = [
                 ...tempSpecificationEssay,
-                { name: specification, data: temp },
+                { name: specification, data: temp, count: 0 },
             ];
         });
 
         setSpecificationMultipleChoice(tempSpecificationMultipleChoice);
         setSpecificationIdentification(tempSpecificationIdentification);
         setSpecificationEssay(tempSpecificationEssay);
+    };
+
+    const updateCount = (operation, type, specification) => {
+        if (operation) {
+            if (type === "multipleChoice") {
+                setSpecificationMultipleChoice((oldState) => {
+                    let newState = oldState.map((object) => {
+                        if (object.data.length <= object.count) {
+                            return object;
+                        }
+
+                        if (object.name === specification) {
+                            return { ...object, count: ++object.count };
+                        }
+
+                        return object;
+                    });
+
+                    return newState;
+                });
+            } else if (type === "identification") {
+                setSpecificationIdentification((oldState) => {
+                    let newState = oldState.map((object) => {
+                        if (object.data.length <= object.count) {
+                            return object;
+                        }
+
+                        if (object.name === specification) {
+                            return { ...object, count: ++object.count };
+                        }
+
+                        return object;
+                    });
+
+                    return newState;
+                });
+            } else if (type === "essay") {
+                setSpecificationEssay((oldState) => {
+                    let newState = oldState.map((object) => {
+                        if (object.data.length <= object.count) {
+                            return object;
+                        }
+
+                        if (object.name === specification) {
+                            return { ...object, count: ++object.count };
+                        }
+
+                        return object;
+                    });
+
+                    return newState;
+                });
+            }
+        } else {
+            if (type === "multipleChoice") {
+                setSpecificationMultipleChoice((oldState) => {
+                    let newState = oldState.map((object) => {
+                        if (object.count <= 0) {
+                            return object;
+                        }
+
+                        if (object.name === specification) {
+                            return { ...object, count: --object.count };
+                        }
+
+                        return object;
+                    });
+
+                    return newState;
+                });
+            } else if (type === "identification") {
+                setSpecificationIdentification((oldState) => {
+                    let newState = oldState.map((object) => {
+                        if (object.count <= 0) {
+                            return object;
+                        }
+
+                        if (object.name === specification) {
+                            return { ...object, count: --object.count };
+                        }
+
+                        return object;
+                    });
+
+                    return newState;
+                });
+            } else if (type === "essay") {
+                setSpecificationEssay((oldState) => {
+                    let newState = oldState.map((object) => {
+                        if (object.count <= 0) {
+                            return object;
+                        }
+
+                        if (object.name === specification) {
+                            return { ...object, count: --object.count };
+                        }
+
+                        return object;
+                    });
+
+                    return newState;
+                });
+            }
+        }
     };
 
     useEffect(() => {
@@ -233,6 +337,7 @@ const Generate = () => {
                                 specificationMultipleChoice={specificationMultipleChoice}
                                 specificationIdentification={specificationIdentification}
                                 specificationEssay={specificationEssay}
+                                updateCount={updateCount}
                             />
                         </div>
                     </div>

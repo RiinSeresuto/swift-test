@@ -11,6 +11,7 @@ const GenerateSidebar = ({
     specificationMultipleChoice,
     specificationIdentification,
     specificationEssay,
+    updateCount,
 }) => {
     const [availableSubjects, setAvailableSubjects] = useState([]);
 
@@ -62,9 +63,25 @@ const GenerateSidebar = ({
                     <h2 className="subtitle mb-2">Multiple Choice</h2>
                     {specificationMultipleChoice.map((item, index) => (
                         <div className="field is-flex is-align-items-center" key={index}>
-                            <div className="button is-info">-</div>
-                            <div className="ml-3 mr-3">0/{item.data.length}</div>
-                            <div className="button is-info mr-4">+</div>
+                            <div
+                                className="button is-info"
+                                onClick={() => {
+                                    updateCount(false, "multipleChoice", item.name);
+                                }}
+                            >
+                                -
+                            </div>
+                            <div className="ml-3 mr-3">
+                                {item.count}/{item.data.length}
+                            </div>
+                            <div
+                                className="button is-info mr-4"
+                                onClick={() => {
+                                    updateCount(true, "multipleChoice", item.name);
+                                }}
+                            >
+                                +
+                            </div>
                             <div> | {item.name}</div>
                         </div>
                     ))}
@@ -73,9 +90,25 @@ const GenerateSidebar = ({
                     <h2 className="subtitle mb-2">Identification</h2>
                     {specificationIdentification.map((item, index) => (
                         <div className="field is-flex is-align-items-center" key={index}>
-                            <div className="button is-info">-</div>
-                            <div className="ml-3 mr-3">0/{item.data.length}</div>
-                            <div className="button is-info mr-4">+</div>
+                            <div
+                                className="button is-info"
+                                onClick={() => {
+                                    updateCount(false, "identification", item.name);
+                                }}
+                            >
+                                -
+                            </div>
+                            <div className="ml-3 mr-3">
+                                {item.count}/{item.data.length}
+                            </div>
+                            <div
+                                className="button is-info mr-4"
+                                onClick={() => {
+                                    updateCount(true, "identification", item.name);
+                                }}
+                            >
+                                +
+                            </div>
                             <div> | {item.name}</div>
                         </div>
                     ))}
@@ -84,9 +117,25 @@ const GenerateSidebar = ({
                     <h2 className="subtitle mb-2">Essay</h2>
                     {specificationEssay.map((item, index) => (
                         <div className="field is-flex is-align-items-center" key={index}>
-                            <div className="button is-info">-</div>
-                            <div className="ml-3 mr-3">0/{item.data.length}</div>
-                            <div className="button is-info mr-4">+</div>
+                            <div
+                                className="button is-info"
+                                onClick={() => {
+                                    updateCount(false, "essay", item.name);
+                                }}
+                            >
+                                -
+                            </div>
+                            <div className="ml-3 mr-3">
+                                {item.count}/{item.data.length}
+                            </div>
+                            <div
+                                className="button is-info mr-4"
+                                onClick={() => {
+                                    updateCount(true, "essay", item.name);
+                                }}
+                            >
+                                +
+                            </div>
                             <div> | {item.name}</div>
                         </div>
                     ))}
