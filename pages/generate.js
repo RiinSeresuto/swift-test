@@ -1,9 +1,11 @@
 import Head from "next/head";
 import { useState, useEffect } from "react";
+import { PDFViewer } from "@react-pdf/renderer";
 import { db } from "../lib/Database";
 import Navigation from "../components/Navigation";
 import GenerateSidebar from "../components/GenerateSidebar";
 import shuffle from "../lib/FisherYatesShuffle";
+import TestPaperViewer from "../components/TestPaperViewer";
 
 const { log, table } = console;
 
@@ -23,7 +25,7 @@ const { log, table } = console;
  * TODO
  * [/] after chapters are selected, shuffle
  * [/] filter each specification, save in own variable or in an array of object
- * [ ] get user input on how many items per specification
+ * [/] get user input on how many items per specification
  * [ ] get the first N of each specification
  * [ ] save all specification in one variable
  * [ ] shuffle all specification
@@ -343,14 +345,14 @@ const Generate = () => {
                     </div>
                     <div className="column is-8 question-interface">
                         <Navigation />
-
                         <div className="px-5 w-100">
                             <h1 className="title">GENERATE</h1>
                         </div>
-
                         {selectedChapters.map((chapter, index) => (
                             <p key={index}>Chapter | {chapter}</p>
                         ))}
+                        {/*<TestPaperViewer />*/}
+                        Under Development...
                     </div>
                 </div>
             </div>
