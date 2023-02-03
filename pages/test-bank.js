@@ -16,9 +16,9 @@ const TestBank = () => {
     const [filteredEssaySet, setFilteredEssaySet] = useState([]);
 
     const [showAnswer, setShowAnswer] = useState(true);
-    const [showMultipleChoice, setShowMultipleChoice] = useState(true);
-    const [showIdentification, setShowIdentification] = useState(true);
-    const [showEssay, setShowEssay] = useState(true);
+    const [showMultipleChoice, setShowMultipleChoice] = useState(false);
+    const [showIdentification, setShowIdentification] = useState(false);
+    const [showEssay, setShowEssay] = useState(false);
 
     const triggerShowAnswer = () => {
         setShowAnswer((old) => !old);

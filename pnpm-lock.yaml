@@ -11,6 +11,7 @@ specifiers:
   localforage: ^1.10.0
   next: 13.0.1
   next-pwa: ^5.6.0
+  pdf-lib: ^1.17.1
   react: 18.2.0
   react-dom: 18.2.0
   react-pdf: ^6.1.1
@@ -28,6 +29,7 @@ dependencies:
   localforage: 1.10.0
   next: 13.0.1_kzvotn2zipzqwaptii5a7wxu3y
   next-pwa: 5.6.0_vb4uxn6ypi3mial6abojd2cyh4
+  pdf-lib: 1.17.1
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-pdf: 6.1.1_biqbaboplfbrettd7655fr4n2y
@@ -1400,6 +1402,18 @@ packages:
     dependencies:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.14.0
+    dev: false
+
+  /@pdf-lib/standard-fonts/1.0.0:
+    resolution: {integrity: sha512-hU30BK9IUN/su0Mn9VdlVKsWBS6GyhVfqjwl1FjZN4TxP6cCw0jP2w7V3Hf5uX7M0AZJ16vey9yE0ny7Sa59ZA==}
+    dependencies:
+      pako: 1.0.11
+    dev: false
+
+  /@pdf-lib/upng/1.0.1:
+    resolution: {integrity: sha512-dQK2FUMQtowVP00mtIksrlZhdFXQZPC+taih1q4CvPZ5vqdxR/LKBaFg0oAfzd1GlHZXXSPdQfzQnt+ViGvEIQ==}
+    dependencies:
+      pako: 1.0.11
     dev: false
 
   /@react-pdf/fns/2.0.0:
@@ -3328,6 +3342,15 @@ packages:
     engines: {node: '>=8'}
     dev: false
 
+  /pdf-lib/1.17.1:
+    resolution: {integrity: sha512-V/mpyJAoTsN4cnP31vc0wfNA1+p20evqqnap0KLoRUN0Yk/p3wN52DOEsL4oBFcLdb76hlpKPtzJIgo67j/XLw==}
+    dependencies:
+      '@pdf-lib/standard-fonts': 1.0.0
+      '@pdf-lib/upng': 1.0.1
+      pako: 1.0.11
+      tslib: 1.14.1
+    dev: false
+
   /pdfjs-dist/2.16.105:
     resolution: {integrity: sha512-J4dn41spsAwUxCpEoVf6GVoz908IAA3mYiLmNxg8J9kfRXc2jxpbUepcP0ocp0alVNLFthTAM8DZ1RaHh8sU0A==}
     peerDependencies:
@@ -3949,6 +3972,10 @@ packages:
     resolution: {integrity: sha512-dTpowEjclQ7Kgx5SdBkqRzVhERQXov8/l9Ft9dVM9fmg0W0KQSVaXX9T4i6twCPNtYiZM53lpSSUAwJbFPOHxA==}
     dependencies:
       punycode: 2.1.1
+    dev: false
+
+  /tslib/1.14.1:
+    resolution: {integrity: sha512-Xni35NKzjgMrwevysHTCArtLDpPvye8zV/0E4EyYn43P7/7qvQwPh9BGkHewbMulVntbigmcT7rdX3BNo9wRJg==}
     dev: false
 
   /tslib/2.4.1:
