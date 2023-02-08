@@ -20,8 +20,20 @@ const TestBank = () => {
     const [showIdentification, setShowIdentification] = useState(false);
     const [showEssay, setShowEssay] = useState(false);
 
+    const [trigger, setTrigger] = useState(false);
+
     const triggerShowAnswer = () => {
         setShowAnswer((old) => !old);
+    };
+
+    const deleteItem = (type, id) => {
+        db.collection(type)
+            .doc({ id: id })
+            .delete()
+            .then((response) => {
+                console.log(response);
+                setTrigger((old) => !old);
+            });
     };
 
     const changeExamTypeFilter = (event) => {
@@ -95,11 +107,11 @@ const TestBank = () => {
 
     useEffect(() => {
         getData();
-    }, []);
+    }, [trigger]);
 
     useEffect(() => {
         filterData();
-    }, [lessons]);
+    }, [lessons, multipleChoice, essay, identification]);
 
     return (
         <>
@@ -142,6 +154,12 @@ const TestBank = () => {
                                 filteredMultipleSet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
                                         {/*id, subject, chapterNo, specification, question, choices, answer*/}
+                                        <div
+                                            className="delete delete--item"
+                                            onClick={() => {
+                                                deleteItem("multipleChoice", item.id);
+                                            }}
+                                        ></div>
                                         <div className="card-content">
                                             <div className="tags">
                                                 <div className="tag is-info">{item.subject}</div>
@@ -174,6 +192,12 @@ const TestBank = () => {
                                 filteredIdentificationSet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
                                         {/**{id, subject, chapterNo, specification, question, answer} */}
+                                        <div
+                                            className="delete delete--item"
+                                            onClick={() => {
+                                                deleteItem("identification", item.id);
+                                            }}
+                                        ></div>
                                         <div className="card-content">
                                             <div className="tags">
                                                 <div className="tag is-info">{item.subject}</div>
@@ -197,6 +221,12 @@ const TestBank = () => {
                                 filteredEssaySet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
                                         {/**{id, subject, chapterNo, specification, question} */}
+                                        <div
+                                            className="delete delete--item"
+                                            onClick={() => {
+                                                deleteItem("essay", item.id);
+                                            }}
+                                        ></div>
                                         <div className="card-content">
                                             <div className="tags">
                                                 <div className="tag is-info">{item.subject}</div>
