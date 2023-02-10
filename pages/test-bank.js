@@ -2,6 +2,7 @@ import Head from "next/head";
 import { useState, useEffect } from "react";
 import Navigation from "../components/Navigation";
 import FilterTestBankForm from "../components/FilterTestBankForm";
+import EditModal from "../components/EditModal";
 import { db } from "../lib/Database";
 
 const TestBank = () => {
@@ -21,9 +22,53 @@ const TestBank = () => {
     const [showEssay, setShowEssay] = useState(false);
 
     const [trigger, setTrigger] = useState(false);
+    const [showEditModal, setShowEditModal] = useState(false);
+
+    const [editingType, setEditingType] = useState("");
+    const [editingId, setEditingId] = useState("");
+    const [editingSubject, setEditingSubject] = useState("");
+    const [editingChapter, setEditingChapter] = useState("");
+    const [editingSpecification, setEditingSpecification] = useState("");
+    const [editingQuestion, setEditingQuestion] = useState("");
+    const [editingChoices, setEditingChoices] = useState([]);
+    const [editingAnswer, setEditingAnswer] = useState("");
 
     const triggerShowAnswer = () => {
         setShowAnswer((old) => !old);
+    };
+
+    const triggerRerender = () => {
+        setTrigger((old) => !old);
+    };
+
+    const toggleModal = (action) => {
+        if (action === "show") {
+            setShowEditModal(true);
+        }
+
+        if (action === "hide") {
+            setShowEditModal(false);
+        }
+    };
+
+    const editingItems = (
+        type,
+        id,
+        subject,
+        chapterNo,
+        specification,
+        question,
+        choices,
+        answer
+    ) => {
+        setEditingType(type);
+        setEditingId(id);
+        setEditingSubject(subject);
+        setEditingChapter(chapterNo);
+        setEditingSpecification(specification);
+        setEditingQuestion(question);
+        setEditingChoices(choices);
+        setEditingAnswer(answer);
     };
 
     const deleteItem = (type, id) => {
@@ -145,6 +190,22 @@ const TestBank = () => {
                         <div className="px-5 w-100">
                             <h1 className="title">TEST BANK</h1>
 
+                            {showEditModal && (
+                                <EditModal
+                                    open={showEditModal}
+                                    action={toggleModal}
+                                    type={editingType}
+                                    id={editingId}
+                                    subject={editingSubject}
+                                    chapter={editingChapter}
+                                    specification={editingSpecification}
+                                    question={editingQuestion}
+                                    choices={editingChoices}
+                                    answer={editingAnswer}
+                                    trigger={triggerRerender}
+                                />
+                            )}
+
                             {showMultipleChoice && (
                                 <h2 className="subtitle mt-6">Multiple Choice</h2>
                             )}
@@ -179,6 +240,25 @@ const TestBank = () => {
                                                 </ol>
                                             </div>
                                             {showAnswer && `Answer: ${item.answer}`}
+                                            <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    editingItems(
+                                                        "multipleChoice",
+                                                        item.id,
+                                                        item.subject,
+                                                        item.chapterNo,
+                                                        item.specification,
+                                                        item.question,
+                                                        item.choices,
+                                                        item.answer
+                                                    );
+                                                    toggleModal("show");
+                                                }}
+                                            >
+                                                Edit
+                                            </span>
                                         </div>
                                     </div>
                                 ))}
@@ -210,6 +290,25 @@ const TestBank = () => {
                                             </div>
                                             <p>{item.question}</p>
                                             {showAnswer && `Answer: ${item.answer}`}
+                                            <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    editingItems(
+                                                        "identification",
+                                                        item.id,
+                                                        item.subject,
+                                                        item.chapterNo,
+                                                        item.specification,
+                                                        item.question,
+                                                        item.choices,
+                                                        item.answer
+                                                    );
+                                                    toggleModal("show");
+                                                }}
+                                            >
+                                                Edit
+                                            </span>
                                         </div>
                                     </div>
                                 ))}
@@ -238,6 +337,25 @@ const TestBank = () => {
                                                 </div>
                                             </div>
                                             <p>{item.question}</p>
+                                            <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    editingItems(
+                                                        "essay",
+                                                        item.id,
+                                                        item.subject,
+                                                        item.chapterNo,
+                                                        item.specification,
+                                                        item.question,
+                                                        item.choices,
+                                                        item.answer
+                                                    );
+                                                    toggleModal("show");
+                                                }}
+                                            >
+                                                Edit
+                                            </span>
                                         </div>
                                     </div>
                                 ))}

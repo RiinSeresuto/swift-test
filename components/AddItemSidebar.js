@@ -54,7 +54,7 @@ const AddItemSidebar = ({
                     <label htmlFor="subject" className="label">
                         Subject
                     </label>
-                    <div className="comtrol w-100">
+                    <div className="control w-100">
                         <div className="select w-100">
                             <select
                                 className="subject-selector w-100"
