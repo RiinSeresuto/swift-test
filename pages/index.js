@@ -17,6 +17,8 @@ const Home = () => {
     const [emptySpecification, setEmptySpecification] = useState(false);
     const [enterTestItemSucsess, setEnterTestItemSuccess] = useState(false);
 
+    const [drawer, setDrawer] = useState(false);
+
     const updateData = (event) => {
         //console.log("====>", event.target.name);
         event.target.name == "subject" && setSubject(event.target.value);
@@ -164,7 +166,18 @@ const Home = () => {
             <div className="container-fluid">
                 <div className="columns is-desktop">
                     <div className="column is-4 sidebar">
-                        <div className="p-5 sidebar--content z-10">
+                        <div
+                            className={`p-5 sidebar--content z-10 small-drawer ${
+                                drawer == true ? "open" : "close"
+                            }`}
+                        >
+                            <div
+                                className="delete close-drawer"
+                                onClick={() => {
+                                    setDrawer((old) => !old);
+                                }}
+                            ></div>
+
                             <AddItemSidebar
                                 updateData={updateData}
                                 addItem={addItem}
@@ -181,7 +194,7 @@ const Home = () => {
                         </div>
                     </div>
 
-                    <div className="column is-8 question-interface">
+                    <div className="column is-8 question-interface small-main-interface">
                         <Navigation />
                         <div className="px-5 w-100">
                             <h1 className="title">NEW TEST ITEM</h1>
@@ -216,6 +229,15 @@ const Home = () => {
                             {/*END QUESTION CARD */}
                         </div>
                     </div>
+                </div>
+
+                <div
+                    className="small-drawer-button"
+                    onClick={() => {
+                        setDrawer((old) => !old);
+                    }}
+                >
+                    <span></span>
                 </div>
             </div>
 

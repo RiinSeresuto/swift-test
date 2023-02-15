@@ -33,6 +33,8 @@ const TestBank = () => {
     const [editingChoices, setEditingChoices] = useState([]);
     const [editingAnswer, setEditingAnswer] = useState("");
 
+    const [drawer, setDrawer] = useState(false);
+
     const triggerShowAnswer = () => {
         setShowAnswer((old) => !old);
     };
@@ -167,7 +169,18 @@ const TestBank = () => {
             <div className="container-fluid">
                 <div className="columns is-desktop">
                     <div className="column is-4 sidebar">
-                        <div className="p-5 sidebar--content z-10">
+                        <div
+                            className={`p-5 sidebar--content z-10 small-drawer ${
+                                drawer == true ? "open" : "close"
+                            }`}
+                        >
+                            <div
+                                className="delete close-drawer"
+                                onClick={() => {
+                                    setDrawer((old) => !old);
+                                }}
+                            ></div>
+
                             <h1 className="title">Filter</h1>
 
                             <p className="is-link mb-3" onClick={triggerShowAnswer}>
@@ -184,8 +197,17 @@ const TestBank = () => {
                             />
                         </div>
                     </div>
-                    <div className="column is-8 question-interface">
+                    <div className="column is-8 question-interface small-main-interface">
                         <Navigation />
+
+                        <div
+                            className="small-drawer-button"
+                            onClick={() => {
+                                setDrawer((old) => !old);
+                            }}
+                        >
+                            <span></span>
+                        </div>
 
                         <div className="px-5 w-100">
                             <h1 className="title">TEST BANK</h1>

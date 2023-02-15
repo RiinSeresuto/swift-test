@@ -52,6 +52,8 @@ const Generate = () => {
     const [specificationIdentification, setSpecificationIdentification] = useState([]);
     const [specificationEssay, setSpecificationEssay] = useState([]);
 
+    const [drawer, setDrawer] = useState(false);
+
     const getData = () => {
         db.collection("multipleChoice")
             .get()
@@ -327,9 +329,20 @@ const Generate = () => {
             </Head>
 
             <div className="container-fluid">
-                <div className="columns">
+                <div className="columns is-desktop">
                     <div className="column is-4 sidebar">
-                        <div className="p-5 sidebar--content z-10">
+                        <div
+                            className={`p-5 sidebar--content z-10 small-drawer ${
+                                drawer == true ? "open" : "close"
+                            }`}
+                        >
+                            <div
+                                className="delete close-drawer"
+                                onClick={() => {
+                                    setDrawer((old) => !old);
+                                }}
+                            ></div>
+
                             <GenerateSidebar
                                 testItems={[...multipleChoice, ...identification, ...essay]}
                                 selectingSubject={selectingSubject}
@@ -343,8 +356,16 @@ const Generate = () => {
                             />
                         </div>
                     </div>
-                    <div className="column is-8 question-interface">
+                    <div className="column is-8 question-interface small-main-interface">
                         <Navigation />
+                        <div
+                            className="small-drawer-button"
+                            onClick={() => {
+                                setDrawer((old) => !old);
+                            }}
+                        >
+                            <span></span>
+                        </div>
                         <div className="px-5 w-100">
                             <h1 className="title">GENERATE</h1>
                         </div>

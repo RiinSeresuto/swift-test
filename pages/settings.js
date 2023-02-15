@@ -14,6 +14,8 @@ const Settings = () => {
     const [specificationList, setSpecificationList] = useState([]);
     const [trigger, setTrigger] = useState(false);
 
+    const [drawer, setDrawer] = useState(false);
+
     useEffect(() => {
         getNewData();
     }, [trigger]);
@@ -87,9 +89,9 @@ const Settings = () => {
             </Head>
 
             <div className="container-fluid">
-                <div className="columns">
+                <div className="columns is-desktop">
                     <div className="column is-4 sidebar"></div>
-                    <div className="column is-8 question-interface">
+                    <div className="column is-8 question-interface small-main-interface">
                         <Navigation />
 
                         <div className="px-5 w-100">
