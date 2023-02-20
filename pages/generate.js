@@ -89,6 +89,8 @@ const Generate = () => {
 
         let tempLessons = Array.from(new Set(filteredSubject.map((item) => item.chapterNo)));
 
+        tempLessons.sort((a, b) => a - b);
+
         setAvailableChapters(tempLessons);
     };
 

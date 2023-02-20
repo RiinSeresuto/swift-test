@@ -25,6 +25,9 @@ const FilterTestBankForm = ({
             });
 
             let filteredLessons = Array.from(new Set(filtered.map((filter) => filter.chapterNo)));
+
+            filteredLessons.sort((a, b) => a - b);
+
             temp.push({ subject: subjectName, lessons: filteredLessons });
         });
 
