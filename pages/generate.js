@@ -15,10 +15,12 @@ const { log, table } = console;
  *      {
  *          name: "specification"
  *          data: [{}, {}, {}]
+ *          count: 0
  *      }
  *      {
  *          name: "specification"
  *          data: [{}, {}, {}]
+ *          count: 0
  *      }
  * ]
  *
@@ -51,6 +53,10 @@ const Generate = () => {
     const [specificationMultipleChoice, setSpecificationMultipleChoice] = useState([]);
     const [specificationIdentification, setSpecificationIdentification] = useState([]);
     const [specificationEssay, setSpecificationEssay] = useState([]);
+
+    const [finalMultipleChoice, setFinalMultipleChoice] = useState([]);
+    const [finalIdentification, setFinalIdentification] = useState([]);
+    const [finalEssay, setFinalEssay] = useState([]);
 
     const [drawer, setDrawer] = useState(false);
 
@@ -302,6 +308,82 @@ const Generate = () => {
         }
     };
 
+    // this function will get the fist N of multiple choice based on their specifications:
+    // and return overall shuffled multiple choice items
+    const getMultipleChoice = () => {
+        let multipleChoice = specificationMultipleChoice;
+        let tempMultipleChoice = [];
+        let tempQuestionOnly = [];
+
+        multipleChoice.forEach((item) => {
+            let tempItem = item.data.slice(0, item.count);
+
+            tempMultipleChoice = [
+                ...tempMultipleChoice,
+                { name: item.name, data: tempItem, count: item.count },
+            ];
+        });
+
+        tempMultipleChoice.forEach((item) => {
+            let tempData = item.data;
+            tempQuestionOnly = [...tempQuestionOnly, ...tempData];
+        });
+
+        return shuffle(tempQuestionOnly);
+    };
+
+    // and return overall shuffled identification items
+    const getIdentification = () => {
+        let identification = specificationIdentification;
+        let tempIdentification = [];
+        let tempQuestionOnly = [];
+
+        identification.forEach((item) => {
+            let tempItem = item.data.slice(0, item.count);
+
+            tempIdentification = [
+                ...tempIdentification,
+                { name: item.name, data: tempItem, count: item.count },
+            ];
+        });
+
+        tempIdentification.forEach((item) => {
+            let tempData = item.data;
+            tempQuestionOnly = [...tempQuestionOnly, ...tempData];
+        });
+
+        return shuffle(tempQuestionOnly);
+    };
+
+    const getEssay = () => {
+        let essay = specificationEssay;
+        let tempEssay = [];
+        let tempQuestionOnly = [];
+
+        essay.forEach((item) => {
+            let tempItem = item.data.slice(0, item.count);
+
+            tempEssay = [...tempEssay, { name: item.name, data: tempItem, count: item.count }];
+        });
+
+        tempEssay.forEach((item) => {
+            let tempData = item.data;
+            tempQuestionOnly = [...tempQuestionOnly, ...tempData];
+        });
+
+        return shuffle(tempQuestionOnly);
+    };
+
+    const getFirstNOfShuffledItems = () => {
+        let multipleChoice = getMultipleChoice();
+        let identification = getIdentification();
+        let essay = getEssay();
+
+        setFinalMultipleChoice(multipleChoice);
+        setFinalIdentification(identification);
+        setFinalEssay(essay);
+    };
+
     useEffect(() => {
         getData();
     }, []);
@@ -321,6 +403,10 @@ const Generate = () => {
     useEffect(() => {
         getFilteredAvailableSpecification();
     }, [shuffledSelectedMultipleChoice, shuffledSelectedIdentification, shuffledSelectedEssay]);
+
+    useEffect(() => {
+        getFirstNOfShuffledItems();
+    }, [specificationMultipleChoice, specificationIdentification, specificationEssay]);
 
     return (
         <>
@@ -358,6 +444,8 @@ const Generate = () => {
                     </div>
                     <div className="column is-8 question-interface small-main-interface">
                         <Navigation />
+
+                        {/** Button for small screen to draw in and out the sidebar */}
                         <div
                             className="small-drawer-button"
                             onClick={() => {
@@ -366,14 +454,14 @@ const Generate = () => {
                         >
                             <span></span>
                         </div>
+
+                        {/** Page title */}
                         <div className="px-5 w-100">
                             <h1 className="title">GENERATE</h1>
                         </div>
-                        {selectedChapters.map((chapter, index) => (
-                            <p key={index}>Chapter | {chapter}</p>
-                        ))}
-                        {/*<TestPaperViewer />*/}
-                        Under Development...
+
+                        <br />
+                        <TestPaperViewer multipleChoice={finalMultipleChoice} />
                     </div>
                 </div>
             </div>
