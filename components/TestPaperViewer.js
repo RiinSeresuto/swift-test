@@ -1,5 +1,6 @@
-import { PDFViewer } from "@react-pdf/renderer";
-import { useState } from "react";
+import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
+import { PDFViewer, PDFDownloadLink } from "@react-pdf/renderer";
 import ExamMetaDataForm from "./PDFViewer/ExamMetaDataForm";
 import PDFWindow from "./PDFViewer/PDFWindow";
 
@@ -7,6 +8,8 @@ const TestPaperViewer = ({ multipleChoice }) => {
     const [schoolName, setSchoolName] = useState("");
     const [schoolAddress, setSchoolAddress] = useState("");
     const [testTitle, setTestTitle] = useState("");
+
+    const [isClient, setIsClient] = useState(false);
 
     const updateSchoolName = (event) => {
         setSchoolName(event.target.value);
@@ -19,6 +22,10 @@ const TestPaperViewer = ({ multipleChoice }) => {
     const updateTestTitle = (event) => {
         setTestTitle(event.target.value);
     };
+
+    useEffect(() => {
+        setIsClient(true);
+    }, []);
 
     return (
         <>
@@ -35,6 +42,24 @@ const TestPaperViewer = ({ multipleChoice }) => {
                 </div>
                 <div className="column">
                     <p>Preview</p>
+
+                    {isClient && (
+                        <PDFDownloadLink
+                            document={
+                                <PDFWindow
+                                    multipleChoice={multipleChoice}
+                                    schoolName={schoolName}
+                                    schoolAddress={schoolAddress}
+                                    testTitle={testTitle}
+                                />
+                            }
+                            fileName="test-papre"
+                        >
+                            {({ loading }) => (loading ? "Loading Document" : "Download")}
+                        </PDFDownloadLink>
+                    )}
+
+                    {/*
                     <PDFViewer width={"100%"} height={"100%"}>
                         <PDFWindow
                             multipleChoice={multipleChoice}
@@ -43,6 +68,7 @@ const TestPaperViewer = ({ multipleChoice }) => {
                             testTitle={testTitle}
                         />
                     </PDFViewer>
+                    */}
                 </div>
             </div>
         </>
