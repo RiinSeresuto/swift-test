@@ -145,7 +145,7 @@ const AddItemSidebar = ({
                         Question
                     </label>
                     <div className="control">
-                        <input
+                        {/*<input
                             type="text"
                             name="question"
                             id="question"
@@ -153,7 +153,15 @@ const AddItemSidebar = ({
                             placeholder="What is the longest english word?"
                             value={question}
                             onChange={updateData}
-                        />
+                                />*/}
+                        <textarea
+                            className="textarea"
+                            name="question"
+                            id="question"
+                            rows="5"
+                            value={question}
+                            onChange={updateData}
+                        ></textarea>
                     </div>
                 </div>
 

@@ -217,13 +217,13 @@ const EditModal = ({
                         <label htmlFor="question" className="label">
                             Question
                         </label>
-                        <input
-                            type="text"
+                        <textarea
                             name="question"
-                            className="input"
+                            rows="3"
+                            className="textarea"
                             value={editingQuestion}
                             onChange={changeQuestion}
-                        />
+                        ></textarea>
 
                         {type === "multipleChoice" && (
                             <>

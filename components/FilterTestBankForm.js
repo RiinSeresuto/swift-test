@@ -44,7 +44,7 @@ const FilterTestBankForm = ({
             <div className="mb-5">
                 <h2 className="subtitle mb-2">Filter Items by Exam Type</h2>
 
-                <div className="control">
+                <div className="control mb-1">
                     <label htmlFor="showMultipleChoice" className="checkbox">
                         <input
                             type="checkbox"
@@ -53,11 +53,11 @@ const FilterTestBankForm = ({
                             checked={showMultipleChoice}
                             onChange={changeExamTypeFilter}
                         />
-                        Multiple Choice
+                        <span className="ml-2">Multiple Choice</span>
                     </label>
                 </div>
 
-                <div className="control">
+                <div className="control mb-1">
                     <label htmlFor="showIdentification" className="checkbox">
                         <input
                             type="checkbox"
@@ -66,7 +66,7 @@ const FilterTestBankForm = ({
                             checked={showIdentification}
                             onChange={changeExamTypeFilter}
                         />
-                        Identification
+                        <span className="ml-2">Identification</span>
                     </label>
                 </div>
 
@@ -79,7 +79,7 @@ const FilterTestBankForm = ({
                             checked={showEssay}
                             onChange={changeExamTypeFilter}
                         />
-                        Essay
+                        <span className="ml-2">Essay</span>
                     </label>
                 </div>
             </div>
@@ -89,7 +89,7 @@ const FilterTestBankForm = ({
                     <h2 className="subtitle mb-2">{item.subject}</h2>
 
                     {item.lessons.map((lesson, index) => (
-                        <div className="control" key={index}>
+                        <div className="control mb-1" key={index}>
                             <label htmlFor={`${item.subject}-${lesson}`} className="checkbox">
                                 <input
                                     type="checkbox"
@@ -98,7 +98,7 @@ const FilterTestBankForm = ({
                                     onChange={handleCheck}
                                     value={lesson}
                                 />
-                                Chapter {lesson}
+                                <span className="ml-2">Chapter {lesson}</span>
                             </label>
                         </div>
                     ))}

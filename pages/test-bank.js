@@ -152,6 +152,12 @@ const TestBank = () => {
         setFilteredEssaySet(tempEssaySet);
     };
 
+    const highlight = (answer, correct) => {
+        let ans = answer.toLowerCase();
+        let index = ans.charCodeAt(0) - "a".charCodeAt(0);
+        return correct === index ? "answer-highlight" : "";
+    };
+
     useEffect(() => {
         getData();
     }, [trigger]);
@@ -257,12 +263,28 @@ const TestBank = () => {
                                             <div className="content">
                                                 <ol type="A">
                                                     {item.choices.map((choice, index) => (
-                                                        <li key={index}>{choice}</li>
+                                                        <li key={index}>
+                                                            <span
+                                                                className={
+                                                                    showAnswer &&
+                                                                    highlight(item.answer, index)
+                                                                }
+                                                            >
+                                                                {choice}
+                                                            </span>
+                                                        </li>
                                                     ))}
                                                 </ol>
                                             </div>
-                                            {showAnswer && `Answer: ${item.answer}`}
-                                            <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    deleteItem("multipleChoice", item.id);
+                                                }}
+                                            >
+                                                Delete
+                                            </span>
+                                            <span> | </span>
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
@@ -293,13 +315,13 @@ const TestBank = () => {
                                 filteredIdentificationSet &&
                                 filteredIdentificationSet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
-                                        {/**{id, subject, chapterNo, specification, question, answer} */}
+                                        {/**{id, subject, chapterNo, specification, question, answer} 
                                         <div
                                             className="delete delete--item"
                                             onClick={() => {
                                                 deleteItem("identification", item.id);
                                             }}
-                                        ></div>
+                                        ></div>*/}
                                         <div className="card-content">
                                             <div className="tags">
                                                 <div className="tag is-info">{item.subject}</div>
@@ -311,8 +333,21 @@ const TestBank = () => {
                                                 </div>
                                             </div>
                                             <p>{item.question}</p>
-                                            {showAnswer && `Answer: ${item.answer}`}
+                                            {showAnswer && (
+                                                <span className="answer-highlight">
+                                                    Answer: {item.answer}
+                                                </span>
+                                            )}
                                             <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    deleteItem("identification", item.id);
+                                                }}
+                                            >
+                                                Delete
+                                            </span>
+                                            <span> | </span>
                                             <span
                                                 className="is-link"
                                                 onClick={() => {

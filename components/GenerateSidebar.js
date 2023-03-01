@@ -31,10 +31,10 @@ const GenerateSidebar = ({
 
             <div className="available-subjects mb-5" onChange={selectingSubject}>
                 {availableSubjects.map((subject, index) => (
-                    <div className="control" key={index}>
+                    <div className="control mb-1" key={index}>
                         <label className="radio">
                             <input type="radio" name="subject" value={subject} />
-                            {subject}
+                            <span className="ml-2">{subject}</span>
                         </label>
                     </div>
                 ))}
@@ -44,7 +44,7 @@ const GenerateSidebar = ({
 
             <div className="mb-5">
                 {availableChapters.map((chapter, index) => (
-                    <div className="control" key={index}>
+                    <div className="control mb-1" key={index}>
                         <label className="checkbox">
                             <input
                                 type="checkbox"
@@ -52,7 +52,7 @@ const GenerateSidebar = ({
                                 onChange={() => selectingAvailableChapters(event, index)}
                                 checked={selectedChapters.includes(chapter)}
                             />
-                            Chapter {chapter}
+                            <span className="ml-2">Chapter {chapter}</span>
                         </label>
                     </div>
                 ))}
