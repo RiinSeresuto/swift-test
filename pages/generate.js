@@ -463,7 +463,11 @@ const Generate = () => {
                         </div>
 
                         <br />
-                        <TestPaperViewer multipleChoice={finalMultipleChoice} />
+                        <TestPaperViewer
+                            multipleChoice={finalMultipleChoice}
+                            identification={finalIdentification}
+                            essay={finalEssay}
+                        />
                     </div>
                 </div>
             </div>
