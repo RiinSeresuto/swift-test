@@ -35,6 +35,10 @@ const TestBank = () => {
 
     const [drawer, setDrawer] = useState(false);
 
+    const [searchMultipleChoice, setSearchMultipleChoice] = useState([]);
+    const [searchIndentification, setSearchIdentification] = useState([]);
+    const [searchEssay, setSearchEssay] = useState([]);
+
     const triggerShowAnswer = () => {
         setShowAnswer((old) => !old);
     };
@@ -143,8 +147,6 @@ const TestBank = () => {
             });
 
             tempEssaySet = [...tempEssaySet, ...tempEssay];
-
-            //log(lesson); subject: 'Physical Science-2', lessonNo: '2'
         });
 
         setFilteredMultipleSet(tempMultipleSet);
@@ -156,6 +158,40 @@ const TestBank = () => {
         let ans = answer.toLowerCase();
         let index = ans.charCodeAt(0) - "a".charCodeAt(0);
         return correct === index ? "answer-highlight" : "";
+    };
+
+    const applySearch = (event) => {
+        const keyword = event.target.value;
+
+        var filterSearchMultipleChoice = [];
+        var filterSearchIdentificaion = [];
+        var filterSearchEssay = [];
+
+        if (keyword === "") {
+            filterSearchMultipleChoice = [];
+            filterSearchIdentificaion = [];
+            filterSearchEssay = [];
+        } else {
+            filterSearchMultipleChoice = multipleChoice.filter((item) => {
+                return item.question.toLowerCase().includes(keyword.toLowerCase());
+            });
+
+            filterSearchIdentificaion = identification.filter((item) => {
+                return item.question.toLowerCase().includes(keyword.toLowerCase());
+            });
+
+            filterSearchEssay = essay.filter((item) => {
+                return item.question.toLowerCase().includes(keyword.toLowerCase());
+            });
+        }
+
+        setSearchMultipleChoice(filterSearchMultipleChoice);
+        setSearchIdentification(filterSearchIdentificaion);
+        setSearchEssay(filterSearchEssay);
+    };
+
+    const search = () => {
+        console.log("searched");
     };
 
     useEffect(() => {
@@ -216,7 +252,20 @@ const TestBank = () => {
                         </div>
 
                         <div className="px-5 w-100">
-                            <h1 className="title">TEST BANK</h1>
+                            <div className="is-flex">
+                                <h1 className="title column">TEST BANK</h1>
+                                <div className="column">
+                                    <div className="control">
+                                        <input
+                                            type="text"
+                                            className="input"
+                                            placeholder="Search"
+                                            value={searchKeywords}
+                                            onChange={applySearch}
+                                        />
+                                    </div>
+                                </div>
+                            </div>
 
                             {showEditModal && (
                                 <EditModal
@@ -239,16 +288,11 @@ const TestBank = () => {
                             )}
 
                             {showMultipleChoice &&
+                                searchMultipleChoice.length == 0 &&
                                 filteredMultipleSet &&
                                 filteredMultipleSet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
                                         {/*id, subject, chapterNo, specification, question, choices, answer*/}
-                                        <div
-                                            className="delete delete--item"
-                                            onClick={() => {
-                                                deleteItem("multipleChoice", item.id);
-                                            }}
-                                        ></div>
                                         <div className="card-content">
                                             <div className="tags">
                                                 <div className="tag is-info">{item.subject}</div>
@@ -307,11 +351,76 @@ const TestBank = () => {
                                     </div>
                                 ))}
 
+                            {showMultipleChoice &&
+                                searchMultipleChoice.length > 0 &&
+                                searchMultipleChoice.map((item, index) => (
+                                    <div className="card mb-3" key={index}>
+                                        {/*id, subject, chapterNo, specification, question, choices, answer*/}
+                                        <div className="card-content">
+                                            <div className="tags">
+                                                <div className="tag is-info">{item.subject}</div>
+                                                <div className="tag is-info">
+                                                    Chapter {item.chapterNo}
+                                                </div>
+                                                <div className="tag is-info">
+                                                    Specification: {item.specification}
+                                                </div>
+                                                <div className="tag is-success">Search Result</div>
+                                            </div>
+                                            <p>{item.question}</p>
+                                            <div className="content">
+                                                <ol type="A">
+                                                    {item.choices.map((choice, index) => (
+                                                        <li key={index}>
+                                                            <span
+                                                                className={
+                                                                    showAnswer &&
+                                                                    highlight(item.answer, index)
+                                                                }
+                                                            >
+                                                                {choice}
+                                                            </span>
+                                                        </li>
+                                                    ))}
+                                                </ol>
+                                            </div>
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    deleteItem("multipleChoice", item.id);
+                                                }}
+                                            >
+                                                Delete
+                                            </span>
+                                            <span> | </span>
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    editingItems(
+                                                        "multipleChoice",
+                                                        item.id,
+                                                        item.subject,
+                                                        item.chapterNo,
+                                                        item.specification,
+                                                        item.question,
+                                                        item.choices,
+                                                        item.answer
+                                                    );
+                                                    toggleModal("show");
+                                                }}
+                                            >
+                                                Edit
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+
                             {showIdentification && (
                                 <h2 className="subtitle mt-6">Identification</h2>
                             )}
 
                             {showIdentification &&
+                                searchIndentification.length == 0 &&
                                 filteredIdentificationSet &&
                                 filteredIdentificationSet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
@@ -370,19 +479,80 @@ const TestBank = () => {
                                     </div>
                                 ))}
 
+                            {showIdentification &&
+                                searchIndentification.length > 0 &&
+                                searchIndentification.map((item, index) => (
+                                    <div className="card mb-3" key={index}>
+                                        {/**{id, subject, chapterNo, specification, question, answer} 
+                                        <div
+                                            className="delete delete--item"
+                                            onClick={() => {
+                                                deleteItem("identification", item.id);
+                                            }}
+                                        ></div>*/}
+                                        <div className="card-content">
+                                            <div className="tags">
+                                                <div className="tag is-info">{item.subject}</div>
+                                                <div className="tag is-info">
+                                                    Chapter {item.chapterNo}
+                                                </div>
+                                                <div className="tag is-info">
+                                                    Specification: {item.specification}
+                                                </div>
+                                                <div className="tag is-success">Search Result</div>
+                                            </div>
+                                            <p>{item.question}</p>
+                                            {showAnswer && (
+                                                <span className="answer-highlight">
+                                                    Answer: {item.answer}
+                                                </span>
+                                            )}
+                                            <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    deleteItem("identification", item.id);
+                                                }}
+                                            >
+                                                Delete
+                                            </span>
+                                            <span> | </span>
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    editingItems(
+                                                        "identification",
+                                                        item.id,
+                                                        item.subject,
+                                                        item.chapterNo,
+                                                        item.specification,
+                                                        item.question,
+                                                        item.choices,
+                                                        item.answer
+                                                    );
+                                                    toggleModal("show");
+                                                }}
+                                            >
+                                                Edit
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+
                             {showEssay && <h2 className="subtitle mt-6">Essay</h2>}
 
                             {showEssay &&
+                                searchEssay.length == 0 &&
                                 filteredEssaySet &&
                                 filteredEssaySet.map((item, index) => (
                                     <div className="card mb-3" key={index}>
                                         {/**{id, subject, chapterNo, specification, question} */}
-                                        <div
+                                        {/*<div
                                             className="delete delete--item"
                                             onClick={() => {
                                                 deleteItem("essay", item.id);
                                             }}
-                                        ></div>
+                                        ></div>*/}
                                         <div className="card-content">
                                             <div className="tags">
                                                 <div className="tag is-info">{item.subject}</div>
@@ -395,6 +565,70 @@ const TestBank = () => {
                                             </div>
                                             <p>{item.question}</p>
                                             <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    deleteItem("essay", item.id);
+                                                }}
+                                            >
+                                                Delte
+                                            </span>
+                                            <span> | </span>
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    editingItems(
+                                                        "essay",
+                                                        item.id,
+                                                        item.subject,
+                                                        item.chapterNo,
+                                                        item.specification,
+                                                        item.question,
+                                                        item.choices,
+                                                        item.answer
+                                                    );
+                                                    toggleModal("show");
+                                                }}
+                                            >
+                                                Edit
+                                            </span>
+                                        </div>
+                                    </div>
+                                ))}
+
+                            {showEssay &&
+                                searchEssay.length > 0 &&
+                                searchEssay.map((item, index) => (
+                                    <div className="card mb-3" key={index}>
+                                        {/**{id, subject, chapterNo, specification, question} */}
+                                        {/*<div
+                                            className="delete delete--item"
+                                            onClick={() => {
+                                                deleteItem("essay", item.id);
+                                            }}
+                                        ></div>*/}
+                                        <div className="card-content">
+                                            <div className="tags">
+                                                <div className="tag is-info">{item.subject}</div>
+                                                <div className="tag is-info">
+                                                    Chapter {item.chapterNo}
+                                                </div>
+                                                <div className="tag is-info">
+                                                    Specification: {item.specification}
+                                                </div>
+                                                <div className="tag is-success">Search Result</div>
+                                            </div>
+                                            <p>{item.question}</p>
+                                            <br />
+                                            <span
+                                                className="is-link"
+                                                onClick={() => {
+                                                    deleteItem("essay", item.id);
+                                                }}
+                                            >
+                                                Delte
+                                            </span>
+                                            <span> | </span>
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
