@@ -260,7 +260,6 @@ const TestBank = () => {
                                             type="text"
                                             className="input"
                                             placeholder="Search"
-                                            value={searchKeywords}
                                             onChange={applySearch}
                                         />
                                     </div>

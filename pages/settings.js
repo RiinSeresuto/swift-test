@@ -1,5 +1,7 @@
 import Head from "next/head";
+import Image from "next/image";
 import { useState, useEffect } from "react";
+import logo from "../images/swift-test-logo.png";
 import Navigation from "../components/Navigation";
 import SettingsForm from "../components/settingsform";
 import { db } from "../lib/Database";
@@ -90,7 +92,26 @@ const Settings = () => {
 
             <div className="container-fluid">
                 <div className="columns is-desktop">
-                    <div className="column is-4 sidebar"></div>
+                    <div className="column is-4 sidebar">
+                        <div className="sidebar--content is-flex is-flex-direction-column is-justify-content-center is-align-items-center p-6">
+                            <div className="content">
+                                <div className="logo-area is-flex is-justify-content-center">
+                                    <Image
+                                        src={logo}
+                                        width={100}
+                                        height={100}
+                                        alt="Swift Test Logo"
+                                    />
+                                </div>
+
+                                <h2 className="has-text-centered">SwiftTest</h2>
+                                <p className="has-text-centered">
+                                    Fast and intuitive application designed to help educators for
+                                    generating test paper on the fly.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
                     <div className="column is-8 question-interface small-main-interface">
                         <Navigation />
 

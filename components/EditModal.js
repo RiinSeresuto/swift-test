@@ -25,6 +25,8 @@ const EditModal = ({
     const [editingChoices, setEditingChoices] = useState([]);
     const [editingAnswer, setEditingAnswer] = useState("");
 
+    const [editType, setEditType] = useState("");
+
     const toggle = () => {
         action("hide");
     };
@@ -135,8 +137,15 @@ const EditModal = ({
         }
     };
 
+    const setType = () => {
+        type === "multipleChoice" && setEditType("Multiple Choice");
+        type === "identification" && setEditType("Identification");
+        type === "essay" && setEditType("Essay");
+    };
+
     useEffect(() => {
         getSubjectsSpecifications();
+        setType();
     }, []);
 
     useEffect(() => {
@@ -154,7 +163,7 @@ const EditModal = ({
                 <div className="modal-background" onClick={toggle}></div>
                 <div className="modal-card">
                     <header className="modal-card-head">
-                        <p className="modal-card-title">Edit {type}</p>
+                        <p className="modal-card-title">Edit {editType}</p>
                         <button className="delete" aria-label="close" onClick={toggle}></button>
                     </header>
                     <section className="modal-card-body">
