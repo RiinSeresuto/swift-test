@@ -160,7 +160,7 @@ const Home = () => {
     return (
         <>
             <Head>
-                <title>Cwician</title>
+                <title>Swift Test</title>
             </Head>
 
             <div className="container-fluid">
@@ -200,32 +200,38 @@ const Home = () => {
                             <h1 className="title">NEW TEST ITEM</h1>
 
                             {/*START QUESTION CARD */}
-                            <div className="card question-card">
-                                <div className="card-content">
-                                    <div className="tags">
-                                        <div className="tag is-info">{subject}</div>
-                                        <div className="tag is-info">{type}</div>
-                                        <div className="tag is-info">Chapter: {chapter}</div>
-                                        <div className="tag is-info">
-                                            {specification.toUpperCase().charAt(0) +
-                                                specification.slice(1)}
+                            {(subject != "" ||
+                                chapter > 0 ||
+                                specification != "" ||
+                                question != "" ||
+                                keyAnswer != "") && (
+                                <div className="card question-card">
+                                    <div className="card-content">
+                                        <div className="tags">
+                                            <div className="tag is-info">{subject}</div>
+                                            <div className="tag is-info">{type}</div>
+                                            <div className="tag is-info">Chapter: {chapter}</div>
+                                            <div className="tag is-info">
+                                                {specification.toUpperCase().charAt(0) +
+                                                    specification.slice(1)}
+                                            </div>
                                         </div>
+                                        <p>{question}</p>
+                                        {type == "multiple choice" && (
+                                            <div>
+                                                {choices.map((item, index) => (
+                                                    <div key={index} className="ml-5">
+                                                        {`${alpha()[index]}. ${item}`}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        )}
+                                        {type != "essay" && (
+                                            <div className="mt-3">Answer: {keyAnswer}</div>
+                                        )}
                                     </div>
-                                    <p>{question}</p>
-                                    {type == "multiple choice" && (
-                                        <div>
-                                            {choices.map((item, index) => (
-                                                <div key={index} className="ml-5">
-                                                    {`${alpha()[index]}. ${item}`}
-                                                </div>
-                                            ))}
-                                        </div>
-                                    )}
-                                    {type != "essay" && (
-                                        <div className="mt-3">Answer: {keyAnswer}</div>
-                                    )}
                                 </div>
-                            </div>
+                            )}
                             {/*END QUESTION CARD */}
                         </div>
                     </div>
