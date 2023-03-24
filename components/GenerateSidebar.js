@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import SidebarTitle from "./SidebarTitle";
 
 const { log } = console;
 
@@ -25,6 +26,7 @@ const GenerateSidebar = ({
     }, [testItems]);
     return (
         <>
+            <SidebarTitle />
             <h1 className="title">Select</h1>
 
             <h2 className="subtitle mb-2">Available Subjects</h2>

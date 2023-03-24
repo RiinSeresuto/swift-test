@@ -4,6 +4,7 @@ import Navigation from "../components/Navigation";
 import FilterTestBankForm from "../components/FilterTestBankForm";
 import EditModal from "../components/EditModal";
 import { db } from "../lib/Database";
+import SidebarTitle from "../components/SidebarTitle";
 
 const TestBank = () => {
     const [lessons, setLessons] = useState([]);
@@ -222,6 +223,8 @@ const TestBank = () => {
                                     setDrawer((old) => !old);
                                 }}
                             ></div>
+
+                            <SidebarTitle />
 
                             <h1 className="title">Filter</h1>
 

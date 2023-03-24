@@ -1,6 +1,7 @@
 import PlusClipboard from "./icons/plus-clipboard";
 import { useState, useEffect } from "react";
 import { db } from "../lib/Database";
+import SidebarTitle from "./SidebarTitle";
 
 const AddItemSidebar = ({
     updateData,
@@ -49,6 +50,7 @@ const AddItemSidebar = ({
 
     return (
         <>
+            <SidebarTitle />
             <form method="post">
                 <div className="field">
                     <label htmlFor="subject" className="label">
