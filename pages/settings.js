@@ -93,7 +93,7 @@ const Settings = () => {
             <div className="container-fluid">
                 <div className="columns is-desktop">
                     <div className="column is-4 sidebar">
-                        <div className="sidebar--content is-flex is-flex-direction-column is-justify-content-center is-align-items-center p-6">
+                        <div className="sidebar--content settings-mobile-sidebar-hide is-flex is-flex-direction-column is-justify-content-center is-align-items-center p-6">
                             <div className="content">
                                 <div className="logo-area is-flex is-justify-content-center">
                                     <Image
