@@ -13,6 +13,7 @@ const TestPaperViewer = ({ multipleChoice, identification, essay }) => {
     const [essayDirection, setEssayDirection] = useState("");
 
     const [isClient, setIsClient] = useState(false);
+    const [filename, setFilename] = useState(null);
 
     const updateSchoolName = (event) => {
         setSchoolName(event.target.value);
@@ -36,6 +37,14 @@ const TestPaperViewer = ({ multipleChoice, identification, essay }) => {
 
     const updateEssayDirection = (event) => {
         setEssayDirection(event.target.value);
+    };
+
+    const updateFilename = (event) => {
+        if (event.target.value.length > 0) {
+            setFilename(event.target.value);
+        } else {
+            setFilename(null);
+        }
     };
 
     useEffect(() => {
@@ -63,10 +72,21 @@ const TestPaperViewer = ({ multipleChoice, identification, essay }) => {
                         identification={identification}
                         essay={essay}
                     />
-                </div>
-                <div className="column">
-                    <p>Preview</p>
-
+                    <br />
+                    <hr />
+                    <label htmlFor="filename" className="label">
+                        Filename
+                    </label>
+                    <div className="control mb-2">
+                        <input
+                            type="text"
+                            name="filename"
+                            id="filename"
+                            className="input"
+                            onChange={updateFilename}
+                            value={filename}
+                        />
+                    </div>
                     {isClient && (
                         <PDFDownloadLink
                             document={
@@ -82,11 +102,21 @@ const TestPaperViewer = ({ multipleChoice, identification, essay }) => {
                                     essayDirection={essayDirection}
                                 />
                             }
-                            fileName="test-paper"
+                            fileName={filename ? filename : "test-paper"}
                         >
-                            {({ loading }) => (loading ? "Loading Document" : "Download")}
+                            {({ loading }) =>
+                                loading ? (
+                                    <div className="button is-warning">Loading File</div>
+                                ) : (
+                                    <div className="button is-info">Save File</div>
+                                )
+                            }
                         </PDFDownloadLink>
                     )}
+                </div>
+
+                <div className="column">
+                    <p>Preview</p>
 
                     {isClient && (
                         <PDFViewer width={"100%"} height={"100%"}>
