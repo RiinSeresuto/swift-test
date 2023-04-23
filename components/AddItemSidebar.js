@@ -44,8 +44,6 @@ const AddItemSidebar = ({
 
         subjectField.value = "";
         specificationField.value = "";
-
-        submitForm();
     };
 
     return (

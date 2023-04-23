@@ -11,7 +11,7 @@ const Nav = () => {
     return (
         <section className="mb-4 w-100">
             <div className="nav is-flex is-justify-content-space-evenly is-align-items-center">
-                <Link href="/" className="nav--link">
+                <Link href="/add" className="nav--link">
                     <div className="nav--link--buttons is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <PlusClipboard size={size} color={color} />
                         <div className="mobile--small">ADD ITEM</div>

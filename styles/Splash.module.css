@@ -1,0 +1,12 @@
+.main {
+    height: 100vh;
+}
+
+.buttons {
+    width: 100%;
+}
+
+.center {
+    max-width: 700px;
+    width: 100%;
+}

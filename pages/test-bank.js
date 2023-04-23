@@ -40,6 +40,10 @@ const TestBank = () => {
     const [searchIndentification, setSearchIdentification] = useState([]);
     const [searchEssay, setSearchEssay] = useState([]);
 
+    const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
+    const [deleteType, setDeleteType] = useState(null);
+    const [deleteId, setDeleteId] = useState(null);
+
     const triggerShowAnswer = () => {
         setShowAnswer((old) => !old);
     };
@@ -78,14 +82,27 @@ const TestBank = () => {
         setEditingAnswer(answer);
     };
 
-    const deleteItem = (type, id) => {
-        db.collection(type)
-            .doc({ id: id })
+    const deleteItem = () => {
+        db.collection(deleteType)
+            .doc({ id: deleteId })
             .delete()
             .then((response) => {
                 console.log(response);
+                closeDeleteModal(false);
+                setDeleteType(null);
+                setDeleteId(null);
                 setTrigger((old) => !old);
             });
+    };
+
+    const deleteModal = (type, testId) => {
+        setDeleteType(type);
+        setDeleteId(testId);
+        setDeleteModalIsOpen(true);
+    };
+
+    const closeDeleteModal = () => {
+        setDeleteModalIsOpen(false);
     };
 
     const changeExamTypeFilter = (event) => {
@@ -191,10 +208,6 @@ const TestBank = () => {
         setSearchEssay(filterSearchEssay);
     };
 
-    const search = () => {
-        console.log("searched");
-    };
-
     useEffect(() => {
         getData();
     }, [trigger]);
@@ -289,6 +302,7 @@ const TestBank = () => {
                                 <h2 className="subtitle mt-6">Multiple Choice</h2>
                             )}
 
+                            {/**multiple choice no search keyword */}
                             {showMultipleChoice &&
                                 searchMultipleChoice.length == 0 &&
                                 filteredMultipleSet &&
@@ -325,7 +339,7 @@ const TestBank = () => {
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
-                                                    deleteItem("multipleChoice", item.id);
+                                                    deleteModal("multipleChoice", item.id);
                                                 }}
                                             >
                                                 Delete
@@ -389,7 +403,7 @@ const TestBank = () => {
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
-                                                    deleteItem("multipleChoice", item.id);
+                                                    deleteModal("multipleChoice", item.id);
                                                 }}
                                             >
                                                 Delete
@@ -453,7 +467,7 @@ const TestBank = () => {
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
-                                                    deleteItem("identification", item.id);
+                                                    deleteModal("identification", item.id);
                                                 }}
                                             >
                                                 Delete
@@ -513,7 +527,7 @@ const TestBank = () => {
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
-                                                    deleteItem("identification", item.id);
+                                                    deleteModal("identification", item.id);
                                                 }}
                                             >
                                                 Delete
@@ -570,7 +584,7 @@ const TestBank = () => {
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
-                                                    deleteItem("essay", item.id);
+                                                    deleteModal("essay", item.id);
                                                 }}
                                             >
                                                 Delte
@@ -625,7 +639,7 @@ const TestBank = () => {
                                             <span
                                                 className="is-link"
                                                 onClick={() => {
-                                                    deleteItem("essay", item.id);
+                                                    deleteModal("essay", item.id);
                                                 }}
                                             >
                                                 Delte
@@ -654,6 +668,36 @@ const TestBank = () => {
                                 ))}
                         </div>
                     </div>
+                </div>
+            </div>
+
+            {/** delete modal */}
+            <div className={`modal ${deleteModalIsOpen && "is-active"}`} id="tutorial">
+                <div className="modal-background" onClick={closeDeleteModal}></div>
+                <div className="modal-card">
+                    <header className="modal-card-head">
+                        <p className="modal-card-title">Delete</p>
+                        <button
+                            className="delete"
+                            aria-label="close"
+                            onClick={closeDeleteModal}
+                        ></button>
+                    </header>
+                    <section className="modal-card-body">
+                        Are you sure to delete this test item?
+                    </section>
+                    <footer className="modal-card-foot">
+                        <button
+                            className="button is-info"
+                            onClick={deleteItem}
+                            disabled={!deleteType || !deleteId}
+                        >
+                            Yes
+                        </button>
+                        <button className="button" onClick={closeDeleteModal}>
+                            Cancel
+                        </button>
+                    </footer>
                 </div>
             </div>
         </>
