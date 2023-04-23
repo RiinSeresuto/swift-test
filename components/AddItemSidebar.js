@@ -212,6 +212,7 @@ const AddItemSidebar = ({
                                 placeholder="Answer"
                                 onChange={updateData}
                                 value={keyAnswer}
+                                autoComplete="off"
                             />
                         </div>
                     </div>

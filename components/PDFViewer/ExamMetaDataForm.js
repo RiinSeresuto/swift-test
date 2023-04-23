@@ -21,37 +21,43 @@ const ExamMetaDataForm = ({
                 <label htmlFor="school-name" className="label">
                     School Name
                 </label>
-                <div className="control">
+                <div className="control mb-3">
                     <input
                         type="text"
+                        id="school-name"
                         name="school-name"
                         className="input"
                         value={schoolName}
                         onChange={updateSchoolName}
+                        autoComplete="off"
                     />
                 </div>
                 <label htmlFor="school-address" className="label">
                     School Address
                 </label>
-                <div className="control">
+                <div className="control mb-3">
                     <input
                         type="text"
                         name="school-address"
                         className="input"
+                        id="school-address"
                         value={schoolAddress}
                         onChange={updateSchoolAddress}
+                        autoComplete="off"
                     />
                 </div>
                 <label htmlFor="test-title" className="label">
                     Test Title
                 </label>
-                <div className="control">
+                <div className="control mb-3">
                     <input
                         type="text"
+                        id="test-title"
                         name="test-title"
                         className="input"
                         value={testTitle}
                         onChange={updateTestTitle}
+                        autoComplete="off"
                     />
                 </div>
 
@@ -60,7 +66,7 @@ const ExamMetaDataForm = ({
                         <label htmlFor="multiple-choice-direction" className="label">
                             Multiple Choice Direction
                         </label>
-                        <div className="control">
+                        <div className="control mb-3">
                             <input
                                 type="text"
                                 name="multiple-choice-direction"
@@ -68,6 +74,7 @@ const ExamMetaDataForm = ({
                                 className="input"
                                 value={multipleChoiceDirection}
                                 onChange={updateMultipleChoiceDirection}
+                                autoComplete="off"
                             />
                         </div>
                     </div>
@@ -78,7 +85,7 @@ const ExamMetaDataForm = ({
                         <label htmlFor="identification-direction" className="label">
                             Identification Direction
                         </label>
-                        <div className="control">
+                        <div className="control mb-3">
                             <input
                                 type="text"
                                 name="identification-direction"
@@ -86,6 +93,7 @@ const ExamMetaDataForm = ({
                                 className="input"
                                 value={identificationDirection}
                                 onChange={updateIdentificationDirection}
+                                autoComplete="off"
                             />
                         </div>
                     </div>
@@ -104,6 +112,7 @@ const ExamMetaDataForm = ({
                                 className="input"
                                 value={essayDirection}
                                 onChange={updateEssayDirection}
+                                autoComplete="off"
                             />
                         </div>
                     </div>

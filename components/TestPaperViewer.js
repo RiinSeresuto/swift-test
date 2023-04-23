@@ -72,7 +72,6 @@ const TestPaperViewer = ({ multipleChoice, identification, essay }) => {
                         identification={identification}
                         essay={essay}
                     />
-                    <br />
                     <hr />
                     <label htmlFor="filename" className="label">
                         Filename
@@ -85,6 +84,7 @@ const TestPaperViewer = ({ multipleChoice, identification, essay }) => {
                             className="input"
                             onChange={updateFilename}
                             value={filename}
+                            autoComplete="off"
                         />
                     </div>
                     {isClient && (

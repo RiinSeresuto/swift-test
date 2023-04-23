@@ -23,6 +23,7 @@ const SettingsForm = ({ submitForm, updateState, name, placeholder }) => {
                         className="input"
                         placeholder={placeholder}
                         onChange={updateState}
+                        autoComplete="off"
                     />
                 </div>
             </div>
