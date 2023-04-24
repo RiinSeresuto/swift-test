@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import style from "../styles/Splash.module.css";
 import logo from "../images/swift-test-logo.png";
+import Tutorial from "../components/Tutorial";
 
 const Home = () => {
     const [open, setOpen] = useState(false);
@@ -63,7 +64,7 @@ const Home = () => {
                                         data-target="tutorial"
                                         onClick={() => modal("show")}
                                     >
-                                        Tutorial
+                                        Overview
                                     </button>
                                 </div>
                             </div>
@@ -77,14 +78,16 @@ const Home = () => {
                 <div className="modal-background" onClick={() => modal("hide")}></div>
                 <div className="modal-card">
                     <header className="modal-card-head">
-                        <p className="modal-card-title">Tutorial</p>
+                        <p className="modal-card-title">Overview</p>
                         <button
                             className="delete"
                             aria-label="close"
                             onClick={() => modal("hide")}
                         ></button>
                     </header>
-                    <section className="modal-card-body">this is the tutorial parts</section>
+                    <section className="modal-card-body" style={{ backgroundColor: "#f5f5f5" }}>
+                        <Tutorial />
+                    </section>
                     <footer className="modal-card-foot">
                         <Link className="button is-info" href="/add">
                             Start
