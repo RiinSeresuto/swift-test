@@ -39,6 +39,7 @@ const TestBank = () => {
     const [searchMultipleChoice, setSearchMultipleChoice] = useState([]);
     const [searchIndentification, setSearchIdentification] = useState([]);
     const [searchEssay, setSearchEssay] = useState([]);
+    const [searchKeyword, setSearchKeyword] = useState("");
 
     const [deleteModalIsOpen, setDeleteModalIsOpen] = useState(false);
     const [deleteType, setDeleteType] = useState(null);
@@ -178,28 +179,30 @@ const TestBank = () => {
         return correct === index ? "answer-highlight" : "";
     };
 
-    const applySearch = (event) => {
-        const keyword = event.target.value;
+    const typeSearch = (event) => {
+        setSearchKeyword(event.target.value);
+    };
 
+    const search = () => {
         var filterSearchMultipleChoice = [];
         var filterSearchIdentificaion = [];
         var filterSearchEssay = [];
 
-        if (keyword === "") {
+        if (searchKeyword === "") {
             filterSearchMultipleChoice = [];
             filterSearchIdentificaion = [];
             filterSearchEssay = [];
         } else {
             filterSearchMultipleChoice = multipleChoice.filter((item) => {
-                return item.question.toLowerCase().includes(keyword.toLowerCase());
+                return item.question.toLowerCase().includes(searchKeyword.toLowerCase());
             });
 
             filterSearchIdentificaion = identification.filter((item) => {
-                return item.question.toLowerCase().includes(keyword.toLowerCase());
+                return item.question.toLowerCase().includes(searchKeyword.toLowerCase());
             });
 
             filterSearchEssay = essay.filter((item) => {
-                return item.question.toLowerCase().includes(keyword.toLowerCase());
+                return item.question.toLowerCase().includes(searchKeyword.toLowerCase());
             });
         }
 
@@ -215,6 +218,10 @@ const TestBank = () => {
     useEffect(() => {
         filterData();
     }, [lessons, multipleChoice, essay, identification]);
+
+    useEffect(() => {
+        search();
+    }, [searchKeyword, lessons, multipleChoice, essay, identification]);
 
     return (
         <>
@@ -276,7 +283,8 @@ const TestBank = () => {
                                             type="text"
                                             className="input"
                                             placeholder="Search keywords"
-                                            onChange={applySearch}
+                                            onChange={typeSearch}
+                                            value={searchKeyword}
                                         />
                                     </div>
                                 </div>

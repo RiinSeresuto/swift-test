@@ -53,12 +53,12 @@ const Home = () => {
                     <div className="actions mt-3">
                         <div className={style.buttons}>
                             <div className="columns">
-                                <div className="column is-flex is-justify-content-end">
+                                <div className="home-cta column is-flex is-justify-content-end">
                                     <Link href="/add" className="button is-info">
                                         HOME
                                     </Link>
                                 </div>
-                                <div className="column is-flex is-justify-content-start">
+                                <div className="home-cta column is-flex is-justify-content-start">
                                     <button
                                         className="button is-info"
                                         data-target="tutorial"
