@@ -49,6 +49,9 @@ const styles = StyleSheet.create({
     testDirection: {
         marginTop: "8px",
     },
+    line: {
+        marginBottom: "10px",
+    },
 });
 
 const PDFWindow = ({
@@ -146,7 +149,8 @@ const PDFWindow = ({
                     identification.map((item, index) => (
                         <View key={index}>
                             <Text style={styles.baseFont}>
-                                {index + 1}. {item.question}
+                                <Text style={styles.listItemIndex}>__________{index + 1}. </Text>
+                                <Text style={styles.question}>{item.question}</Text>
                             </Text>
                         </View>
                     ))}
@@ -160,8 +164,18 @@ const PDFWindow = ({
                 {essay &&
                     essay.map((item, index) => (
                         <View key={index}>
-                            <Text style={styles.baseFont}>
-                                {index + 1}. {item.question}
+                            <Text>
+                                <Text style={styles.baseFont}>
+                                    {index + 1}. {item.question} {"\n"}
+                                </Text>
+                                <View>
+                                    <Text style={styles.baseFont}>
+                                        __________________________________________________________________________________
+                                        __________________________________________________________________________________
+                                        __________________________________________________________________________________{" "}
+                                        {"\n"}
+                                    </Text>
+                                </View>
                             </Text>
                         </View>
                     ))}
