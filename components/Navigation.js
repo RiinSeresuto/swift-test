@@ -14,25 +14,25 @@ const Nav = () => {
                 <Link href="/add" className="nav--link">
                     <div className="nav--link--buttons is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <PlusClipboard size={size} color={color} />
-                        <div className="mobile--small">ADD ITEM</div>
+                        <div className="mobile--small is-size-7">ADD ITEM</div>
                     </div>
                 </Link>
                 <Link href="/test-bank" className="nav--link">
                     <div className="nav--link--buttons is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <RadioList size={size} color={color} />
-                        <div className="mobile--small">TEST BANK</div>
+                        <div className="mobile--small is-size-7">TEST BANK</div>
                     </div>
                 </Link>
                 <Link href="/generate" className="nav--link">
                     <div className="nav--link--buttons is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <GitLineCompare size={size} color={color} />
-                        <div className="mobile--small">GENERATE</div>
+                        <div className="mobile--small is-size-7">GENERATE</div>
                     </div>
                 </Link>
                 <Link href="/settings" className="nav--link">
                     <div className="nav--link--buttons is-flex is-flex-direction-column is-justify-content-center is-align-items-center">
                         <Settings size={size} color={color} />
-                        <div className="mobile--small">SETTINGS</div>
+                        <div className="mobile--small is-size-7">SETTINGS</div>
                     </div>
                 </Link>
             </div>
