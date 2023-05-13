@@ -85,8 +85,8 @@ const FilterTestBankForm = ({
             </div>
 
             {listItems.map((item, index) => (
-                <div className="mb-5" key={index}>
-                    <h2 className="subtitle mb-2">{item.subject}</h2>
+                <details className="mb-5" key={index}>
+                    <summary className="subtitle mb-2 summary-subject-list">{item.subject}</summary>
 
                     {item.lessons.map((lesson, index) => (
                         <div className="control mb-1" key={index}>
@@ -102,7 +102,7 @@ const FilterTestBankForm = ({
                             </label>
                         </div>
                     ))}
-                </div>
+                </details>
             ))}
         </form>
     );
